@@ -30,22 +30,22 @@ function description(name: string, category: string) {
 }
 
 const PRODUCTS = [
-  { name: "Silk Wrap Blouse", price: 6200, seed: 0, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, isNew: true },
-  { name: "Tailored Wool Coat", price: 18500, compareAt: 22000, seed: 1, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.earth },
-  { name: "Leather Crossbody", price: 9800, seed: 2, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.earth },
-  { name: "Cashmere Knit", price: 11200, seed: 3, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.mixed, isNew: true },
-  { name: "Merino Crewneck", price: 7400, seed: 1, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral },
-  { name: "Tailored Trousers", price: 8600, seed: 2, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.earth },
-  { name: "Structured Blazer", price: 15400, seed: 0, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, isNew: true },
-  { name: "Suede Belt", price: 3200, seed: 3, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.earth },
-  { name: "Linen Shirt Dress", price: 9200, compareAt: 11000, seed: 2, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.mixed },
-  { name: "Cotton Poplin Shirt", price: 5600, seed: 1, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral },
-  { name: "Gold-Plated Hoops", price: 4200, seed: 0, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.earth, isNew: true },
-  { name: "Pleated Midi Skirt", price: 7800, seed: 3, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.mixed },
-  { name: "Wool Overcoat", price: 21000, seed: 1, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.earth },
-  { name: "Silk Pocket Square", price: 1800, seed: 2, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.mixed },
-  { name: "Ribbed Tank", price: 3400, seed: 0, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral },
-  { name: "Leather Derby Shoes", price: 13600, seed: 3, category: "Men", sizes: ["7", "8", "9", "10", "11"], colors: COLOR_SETS.earth },
+  { name: "Silk Wrap Blouse", price: 6200, seed: 0, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, isNew: true, images: ["/uploads/products/silk-blouse.jpg"] },
+  { name: "Tailored Wool Coat", price: 18500, compareAt: 22000, seed: 1, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.earth, images: ["/uploads/products/wool-coat.jpg"] },
+  { name: "Leather Crossbody", price: 9800, seed: 2, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.earth, images: ["/uploads/products/leather-bag.jpg"] },
+  { name: "Cashmere Knit", price: 11200, seed: 3, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.mixed, isNew: true, images: ["/uploads/products/cashmere-knit.jpg"] },
+  { name: "Merino Crewneck", price: 7400, seed: 1, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, images: ["/uploads/products/crewneck.jpg"] },
+  { name: "Tailored Trousers", price: 8600, seed: 2, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.earth, images: ["/uploads/products/trousers.jpg"] },
+  { name: "Structured Blazer", price: 15400, seed: 0, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, isNew: true, images: ["/uploads/products/mens-blazer.jpg"] },
+  { name: "Suede Belt", price: 3200, seed: 3, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.earth, images: ["/uploads/products/suede-belt.jpg"] },
+  { name: "Linen Shirt Dress", price: 9200, compareAt: 11000, seed: 2, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.mixed, images: ["/uploads/products/linen-dress.jpg"] },
+  { name: "Cotton Poplin Shirt", price: 5600, seed: 1, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, images: ["/uploads/products/cotton-shirt.jpg"] },
+  { name: "Gold-Plated Hoops", price: 4200, seed: 0, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.earth, isNew: true, images: ["/uploads/products/gold-hoops.jpg"] },
+  { name: "Pleated Midi Skirt", price: 7800, seed: 3, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.mixed, images: ["/uploads/products/pleated-skirt.jpg"] },
+  { name: "Wool Overcoat", price: 21000, seed: 1, category: "Men", sizes: SIZES_APPAREL, colors: COLOR_SETS.earth, images: ["/uploads/products/wool-overcoat.jpg"] },
+  { name: "Silk Pocket Square", price: 1800, seed: 2, category: "Accessories", sizes: SIZES_ACCESSORY, colors: COLOR_SETS.mixed, images: ["/uploads/products/pocket-square.jpg"] },
+  { name: "Ribbed Tank", price: 3400, seed: 0, category: "Women", sizes: SIZES_APPAREL, colors: COLOR_SETS.neutral, images: ["/uploads/products/ribbed-tank.jpg"] },
+  { name: "Leather Derby Shoes", price: 13600, seed: 3, category: "Men", sizes: ["7", "8", "9", "10", "11"], colors: COLOR_SETS.earth, images: ["/uploads/products/derby-shoes.jpg"] },
 ];
 
 async function main() {
@@ -65,6 +65,7 @@ async function main() {
         seed: p.seed,
         sizes: JSON.stringify(p.sizes),
         colors: JSON.stringify(p.colors),
+        images: JSON.stringify(p.images),
         isNew: p.isNew ?? false,
       },
     });
