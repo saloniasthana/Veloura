@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Veloura
 
-## Getting Started
+A full-stack luxury fashion ecommerce storefront built with Next.js (App
+Router), Prisma, and SQLite — customer storefront, checkout, accounts, and
+an admin dashboard, all in one app.
 
-First, run the development server:
+## Features
+
+- **Storefront** — homepage, shop with filters/sort/pagination, product
+  detail pages with a photo gallery
+- **Cart & wishlist** — persisted client-side per browser
+- **Accounts** — registration/login with hashed passwords and httpOnly
+  session cookies, order history, saved addresses
+- **Checkout** — address form, shipping method, payment method (UI only —
+  see note below), order confirmation
+- **Admin dashboard** — order management with status updates, product
+  catalog CRUD with image upload, customer list, live stats
+- Real product and marketing photography throughout
+
+## Tech stack
+
+Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion ·
+Prisma 7 + SQLite · JWT sessions (`jose`) · bcryptjs
+
+## Getting started
 
 ```bash
+npm install
+
+# copy the example env and fill in a JWT secret
+cp .env.example .env
+
+# create the database and seed products + the admin account
+npx prisma migrate dev
+npm run db:seed
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Admin dashboard: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
+— seeded credentials are `admin@veloura.com` / `veloura2026`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Notes
 
-## Learn More
+This is a portfolio/demo project, not production-ready as-is:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Payments are simulated** — checkout does not process a real
+  transaction with any payment provider.
+- **Uploaded product images** are written to the local filesystem
+  (`public/uploads/products`), which works for local development but not
+  for serverless hosting — swap in an object store (S3, Cloudinary, etc.)
+  before deploying.
+- Cart and wishlist are stored in the browser (`localStorage`), not the
+  database.
