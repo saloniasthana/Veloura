@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(CUSTOMER)
+  createdAt    DateTime  @default(now())
+  addresses    Address[]
+  orders       Order[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Int
+  compareAt   Int?
+  category    String
+  seed        Int
+  sizes       String
+  colors      String
+  images      String   @default("[]")
+  isNew       Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Address {
+  id          String  @id @default(cuid())
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName    String
+  phone       String
+  addressLine String
+  city        String
+  state       String
+  pincode     String
+  isDefault   Boolean @default(false)
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  orderNumber    String      @unique
+  userId         String?
+  user           User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items          OrderItem[]
+  subtotal       Int
+  shippingCost   Int
+  total          Int
+  shippingMethod String
+  paymentMethod  String
+  status         String      @default("Processing")
+  fullName       String
+  email          String
+  phone          String
+  addressLine    String
+  city           String
+  state          String
+  pincode        String
+  createdAt      DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  name      String
+  price     Int
+  quantity  Int
+  size      String
+  color     String
+  seed      Int
+}
