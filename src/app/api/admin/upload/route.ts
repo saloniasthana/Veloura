@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
+import { put } from "@vercel/blob";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdminSession } from "@/lib/session";
 
@@ -35,6 +36,18 @@ export async function POST(req: NextRequest) {
   }
 
   const filename = `${randomUUID()}.${ext}`;
+
+  // Production (or whenever Blob storage is configured): store in Vercel Blob,
+  // since the filesystem is not writable/persistent on serverless hosting.
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    const blob = await put(`products/${filename}`, file, {
+      access: "public",
+      addRandomSuffix: false,
+    });
+    return NextResponse.json({ url: blob.url }, { status: 201 });
+  }
+
+  // Local development fallback: write directly to the public folder.
   const filePath = path.join(
     /*turbopackIgnore: true*/ process.cwd(),
     "public",
@@ -42,7 +55,6 @@ export async function POST(req: NextRequest) {
     "products",
     filename
   );
-
   const buffer = Buffer.from(await file.arrayBuffer());
   await writeFile(filePath, buffer);
 
