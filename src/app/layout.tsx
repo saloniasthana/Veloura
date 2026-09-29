@@ -18,7 +18,23 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Veloura",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  applicationName: "Veloura",
   title: "Veloura — Luxury Fashion",
   description:
     "Veloura is a house of considered fashion — crafted pieces, quiet luxury, made to last.",
@@ -35,6 +51,10 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ivory text-ink">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <AuthProvider>
           <WishlistProvider>
             <CartProvider>
